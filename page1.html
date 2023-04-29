@@ -14,32 +14,32 @@
     <p>This is Page 1 of my website.</p>
 
     <script>
-      const url = "https://www.tagesschau.de";
-      const keywords = ["coronavirus", "election", "climate"];
-      const keywordCount = {};
+     const urls = ["https://www.tagesschau.de", "https://www.deutschlandfunkkultur.de"];
+const keywords = ["coronavirus", "election", "climate", "liebe", "grüße", "kurzstrecke"];
+const keywordCount = {};
 
-      keywords.forEach(keyword => {
-        keywordCount[keyword] = 0;
-      });
+keywords.forEach(keyword => {
+  keywordCount[keyword] = 0;
+});
 
-      fetch(url)
-        .then(response => response.text())
-        .then(text => {
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(text, "text/html");
-          const elements = doc.body.querySelectorAll("*");
-          elements.forEach(element => {
-            const text = element.textContent;
-            keywords.forEach(keyword => {
-              if (text.toLowerCase().includes(keyword.toLowerCase())) {
-                keywordCount[keyword]++;
-              }
-            });
-          });
-          keywords.forEach(keyword => {
-            console.log(keyword + ": " + keywordCount[keyword]);
-          });
+urls.forEach(url => {
+  fetch(url)
+    .then(response => response.text())
+    .then(text => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(text, "text/html");
+      const elements = doc.body.querySelectorAll("*");
+      elements.forEach(element => {
+        const text = element.textContent;
+        keywords.forEach(keyword => {
+          if (text.toLowerCase().includes(keyword.toLowerCase())) {
+            keywordCount[keyword]++;
+          }
         });
-    </script>
-  </body>
-</html>
+      });
+      console.log("Results for " + url + ":");
+      keywords.forEach(keyword => {
+        console.log(keyword + ": " + keywordCount[keyword]);
+      });
+    });
+});
