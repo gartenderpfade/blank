@@ -12,5 +12,34 @@
     </nav>
     <h1>Page 1</h1>
     <p>This is Page 1 of my website.</p>
+
+    <script>
+      const url = "https://www.tagesschau.de";
+      const keywords = ["coronavirus", "election", "climate"];
+      const keywordCount = {};
+
+      keywords.forEach(keyword => {
+        keywordCount[keyword] = 0;
+      });
+
+      fetch(url)
+        .then(response => response.text())
+        .then(text => {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(text, "text/html");
+          const elements = doc.body.querySelectorAll("*");
+          elements.forEach(element => {
+            const text = element.textContent;
+            keywords.forEach(keyword => {
+              if (text.toLowerCase().includes(keyword.toLowerCase())) {
+                keywordCount[keyword]++;
+              }
+            });
+          });
+          keywords.forEach(keyword => {
+            console.log(keyword + ": " + keywordCount[keyword]);
+          });
+        });
+    </script>
   </body>
 </html>
