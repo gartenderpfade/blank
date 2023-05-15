@@ -85,4 +85,14 @@ textarea {
     padding: 10px;
   }
 }
+/* Your existing CSS styles here */
+
+.grapevine {
+  display: inline-block;
+  width: 200px;
+  height: 200px;
+  background-color: #c7e8ff;
+  margin: 10px;
+  cursor: pointer;
+}
 
